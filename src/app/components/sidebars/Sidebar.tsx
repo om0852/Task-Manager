@@ -26,7 +26,7 @@ const Sidebar = () => {
   return (
     <SidebarStyled className="flex flex-col justify-between" theme={theme}>
       <div className="profile">
-        <div className="profile-overlay absolute top-0 left-0 w-full  backdrop-filter[blur(10px)]  z-0 transition-all "></div>
+        <div className="profile-overlay absolute top-0 left-0 w-full h-full backdrop-filter[blur(10px)]  z-0 transition-all "></div>
         <div className="image">
           {" "}
           <Image width={70} height={70} src="/avatar1.png" alt="" />
@@ -82,17 +82,23 @@ const SidebarStyled = styled.nav`
     .cl-rootBox {
       width: 100%;
       height: 100%;
+      display: block;
       .cl-userButtonBox {
         width: 100%;
         height: 100%;
 
-        .cl-userButtonTrigger {
+        .cl-internal-c4jh7f {
           width: 100%;
           height: 100%;
           opacity: 0;
         }
       }
     }
+  }
+  .cl-userButtonTrigger{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
   }
   .profile {
     margin: 1.5rem;
