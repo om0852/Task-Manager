@@ -8,6 +8,7 @@ import GlobalStylesProvider from "./providers/GlobalStylesProvider";
 import ContextProvider from "./providers/ContextProvider";
 import { auth } from "@clerk/nextjs/server";
 import { ToastBar, Toaster } from "react-hot-toast";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Nunito({ subsets: ["latin"] ,weight:["400","500","600","700","800"]});
 
@@ -36,6 +37,7 @@ export default function RootLayout({
           />
         </head>
         <body className={inter.className}>
+          <NextTopLoader height={2} color="red" easing="cubic-bezier(.53,0.32,0,1)"/>
           <ContextProvider>
             <GlobalStylesProvider>
               {userId && <Sidebar />} <div className="w-full">{children}</div>

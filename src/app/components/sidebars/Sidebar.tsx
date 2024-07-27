@@ -57,8 +57,9 @@ const Sidebar = () => {
               router.push("/signin");
             },1000);
           }}
-          className="w-[70%] bg-red-500 text-white justify-center h-10 flex flex-col items-center"
+          className="gap-2 w-[70%] bg-red-500 text-white justify-center h-10 flex flex-row items-center "
         >
+          {logout}
           <SignOutButton />
         </div>
         {/* <Button click={()=>{SignedOut(()=>router.push("/sign-in"))}} icon={logout} name="Sign Out" padding={"0.4rem 0.8rem"} borderRad={"0.8rem"} fw="500" fs="1.2rem" type="submit" /> */}

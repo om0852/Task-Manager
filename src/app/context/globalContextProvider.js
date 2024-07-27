@@ -3,6 +3,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import themes from "./themes";
 import axios from "axios";
+import { useUser } from "@clerk/nextjs";
 
 export const GlobalContext = createContext();
 export const GlobalUpdateContext = createContext();
@@ -12,9 +13,10 @@ export const GlobalProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [selectedTheme, setSelectedTheme] = useState(0);
   const theme = themes[selectedTheme];
-  useEffect(() => {
-    getAllTask();
-  }, []);
+  const {user}=useUser();
+  useEffect(()=>{
+    if(user)getAllTask();
+  },[user])
   const getAllTask = async () => {
     setIsLoading(true);
     try {
