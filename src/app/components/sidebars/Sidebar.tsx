@@ -12,10 +12,12 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Button from "../button/Button";
 import { logout } from "@/app/utils/Icons";
-import { SignedOut, SignOutButton, UserButton } from "@clerk/nextjs";
+import { SignedOut, SignOutButton, UserButton, useUser } from "@clerk/nextjs";
 const Sidebar = () => {
   const router = useRouter();
   const pathName = usePathname();
+  const {user} =useUser();
+  // console.log(user)
   const handleClick = (link: string) => {
     router.push(link);
   };
@@ -29,14 +31,14 @@ const Sidebar = () => {
         <div className="profile-overlay absolute top-0 left-0 w-full h-full backdrop-filter[blur(10px)]  z-0 transition-all "></div>
         <div className="image">
           {" "}
-          <Image width={70} height={70} src="/avatar1.png" alt="" />
+          <Image width={70} height={70} src={user?.imageUrl?user.imageUrl:"/avatar1.png"} alt="" />
         </div>{" "}
         <div className="user-btn absolute z-20 top-0 w-full h-full">
           <UserButton />
         </div>
         <h1>
-          <span>John</span>
-          <span>Salunke</span>
+          <span>{user?.firstName}</span>
+          <span>{user?.lastName}</span>
         </h1>
       </div>
       <ul className="nav-items">
