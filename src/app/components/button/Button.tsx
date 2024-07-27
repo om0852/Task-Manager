@@ -29,19 +29,31 @@ const Button: React.FC<Props> = ({
   type,
 }) => {
   const { theme } = useGlobalState();
+
   return (
-    <div
+    <ButtonStyled
       style={{
         background: background,
-        padding,
-        borderRadius: borderRad ,
-        fontWeight: fw,
+        padding: padding || "0.5rem 1rem",
+        borderRadius: borderRad || "0.5rem",
+        fontWeight: fw || "500",
         fontSize: fs,
-        border,
+        border: border || "none",
+        display:"flex",
+        alignItems:"center",
+        width:"80%",
+        justifyContent:"space-around"
       }}
+      onClick={click}
     >
-      Button
-    </div>
+      {icon && icon}
+      {name && name}
+      
+    </ButtonStyled>
   );
 };
+const ButtonStyled=styled.button`
+
+  
+`
 export default Button;

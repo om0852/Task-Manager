@@ -10,6 +10,9 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import Button from "../button/Button";
+import { logout } from "@/app/utils/Icons";
+import { SignedOut, SignOutButton } from "@clerk/nextjs";
 const Sidebar = () => {
   const router = useRouter();
   const pathName = usePathname();
@@ -36,7 +39,8 @@ const Sidebar = () => {
       <ul className="nav-items">
         {menu.map((item) => {
           return (
-            <li key={item.id}
+            <li
+              key={item.id}
               className={`nav-item ${pathName == item.link ? "active" : ""}`}
               onClick={() => handleClick(item.link)}
             >
@@ -46,7 +50,19 @@ const Sidebar = () => {
           );
         })}
       </ul>
-      <button></button>
+      <div className="sign-out relative mb-4 px-4 flex flex-col items-center">
+        <div
+          onClick={() => {
+            setTimeout(() => {
+              router.push("/signin");
+            },1000);
+          }}
+          className="w-[70%] bg-red-500 text-white justify-center h-10 flex flex-col items-center"
+        >
+          <SignOutButton />
+        </div>
+        {/* <Button click={()=>{SignedOut(()=>router.push("/sign-in"))}} icon={logout} name="Sign Out" padding={"0.4rem 0.8rem"} borderRad={"0.8rem"} fw="500" fs="1.2rem" type="submit" /> */}
+      </div>
     </SidebarStyled>
   );
 };
@@ -171,9 +187,8 @@ const SidebarStyled = styled.nav`
       /* line-height: 0; */
     }
   }
-  .active::before{
+  .active::before {
     width: 0.3rem;
-
   }
 `;
 

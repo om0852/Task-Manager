@@ -32,9 +32,8 @@ const TaskItem: React.FC<Props> = ({
           <button className="incompleted">InCompleted</button>
         )}
         <div>
-
-        <button className="edit">{edit}</button>
-        <button className="edit">{trash}</button>
+          <button className="edit">{edit}</button>
+          <button className="edit">{trash}</button>
         </div>
       </div>
     </TaskItemStyle>
@@ -69,9 +68,9 @@ const TaskItemStyle = styled.div`
       border: none;
       outline: none;
       cursor: pointer;
-      
+
       i {
-          margin: 0 2vh;
+        margin: 0 2vh;
         color: ${(props) => props.theme.colorGrey2};
         font-size: 1.4rem;
       }
@@ -87,9 +86,8 @@ const TaskItemStyle = styled.div`
       background-color: ${(props) => props.theme.colorDanger};
       border-radius: 30px;
     }
-    .completed{
-        background-color: ${(props) => props.theme.colorGreenDark};
-
+    .completed {
+      background-color: ${(props) => props.theme.colorGreenDark};
     }
   }
 `;
