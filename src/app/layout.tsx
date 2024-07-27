@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import Sidebar from "./components/sidebars/Sidebar";
 import GlobalStylesProvider from "./providers/GlobalStylesProvider";
@@ -9,7 +9,7 @@ import ContextProvider from "./providers/ContextProvider";
 import { auth } from "@clerk/nextjs/server";
 import { ToastBar, Toaster } from "react-hot-toast";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Nunito({ subsets: ["latin"] ,weight:["400","500","600","700","800"]});
 
 export const metadata: Metadata = {
   title: "Create Next App",

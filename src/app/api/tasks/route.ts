@@ -33,6 +33,17 @@ export async function POST(req: NextRequest) {
 }
 export async function GET(req: NextRequest) {
   try {
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json("/signin");
+    }
+const tasks = await prisma.task.findMany({
+    where:{
+        userId
+    }
+})
+return NextResponse.json({data:tasks});
+
   } catch (error: any) {
     console.log(error);
     return NextResponse.json(
