@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images:{
-        hostnamefetching :["localhost","img.clerk.com"]
+    images: {
+        domains: ["img.clerk.com"]
     }
 };
 
