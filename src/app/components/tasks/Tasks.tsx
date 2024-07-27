@@ -13,11 +13,13 @@ const Tasks: React.FC<TaskProps> = ({ title, tasks }) => {
   const { theme } = useGlobalState();
   return (
     <TaskStyled theme={theme}>
+      {/* <CreateContent/> */}
       <h1>{title}</h1>
       <div className="tasks grid">
         {tasks?.map((item, index) => (
           <TaskItem
             key={index}
+            id={item.id}
             title={item.title}
             description={item.description}
             date={item.date}

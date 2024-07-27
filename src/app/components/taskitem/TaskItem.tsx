@@ -5,6 +5,7 @@ import formatDate from "@/app/utils/formatdate";
 import React, { useMemo } from "react";
 import styled from "styled-components";
 interface Props {
+  id:string;
   title: string;
   description: string;
   date: string;
@@ -13,12 +14,13 @@ interface Props {
 }
 const TaskItem: React.FC<Props> = ({
   title,
+  id,
   description,
   date,
   isImportant,
   isCompleted,
 }) => {
-  const { theme } = useGlobalState();
+  const { theme ,deleteTask} = useGlobalState();
   const newDate = useMemo(() => formatDate(date), []);
   return (
     <TaskItemStyle theme={theme}>
@@ -33,7 +35,7 @@ const TaskItem: React.FC<Props> = ({
         )}
         <div>
           <button className="edit">{edit}</button>
-          <button className="edit">{trash}</button>
+          <button className="edit" onClick={()=>deleteTask(id)}>{trash}</button>
         </div>
       </div>
     </TaskItemStyle>

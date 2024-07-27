@@ -12,7 +12,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Button from "../button/Button";
 import { logout } from "@/app/utils/Icons";
-import { SignedOut, SignOutButton } from "@clerk/nextjs";
+import { SignedOut, SignOutButton, UserButton } from "@clerk/nextjs";
 const Sidebar = () => {
   const router = useRouter();
   const pathName = usePathname();
@@ -26,11 +26,14 @@ const Sidebar = () => {
   return (
     <SidebarStyled className="flex flex-col justify-between" theme={theme}>
       <div className="profile">
-        <div className="profile-overlay absolute top-0 left-0 w-full h-full backdrop-filter[blur(10px)]  z-0 transition-all "></div>
+        <div className="profile-overlay absolute top-0 left-0 w-full  backdrop-filter[blur(10px)]  z-0 transition-all "></div>
         <div className="image">
           {" "}
           <Image width={70} height={70} src="/avatar1.png" alt="" />
         </div>{" "}
+        <div className="user-btn absolute z-20 top-0 w-full h-full">
+          <UserButton />
+        </div>
         <h1>
           <span>John</span>
           <span>Salunke</span>
@@ -55,7 +58,7 @@ const Sidebar = () => {
           onClick={() => {
             setTimeout(() => {
               router.push("/signin");
-            },1000);
+            }, 1000);
           }}
           className="gap-2 w-[70%] bg-red-500 text-white justify-center h-10 flex flex-row items-center "
         >
@@ -75,6 +78,22 @@ const SidebarStyled = styled.nav`
   border-radius: 1rem;
   color: ${(props) => props.theme.colorGrey3};
 
+  .user-btn {
+    .cl-rootBox {
+      width: 100%;
+      height: 100%;
+      .cl-userButtonBox {
+        width: 100%;
+        height: 100%;
+
+        .cl-userButtonTrigger {
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+        }
+      }
+    }
+  }
   .profile {
     margin: 1.5rem;
     position: relative;

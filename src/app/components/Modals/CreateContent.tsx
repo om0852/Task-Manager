@@ -10,9 +10,6 @@ const CreateContent = () => {
   const [completed, setCompleted] = useState(false);
   const [important, setImportant] = useState(false);
 
-  // useEffect(()=>{
-
-  // },[title])
   const handleOnSumbit = async (e: FormEvent) => {
     e.preventDefault();
     const task = {
@@ -77,7 +74,9 @@ const CreateContent = () => {
           value={completed.toString()}
           id="completed"
           name="completed"
-          onChange={(e) => setCompleted(e.target.value === "true")}
+          onChange={(e) => {
+            setCompleted(e.target.checked);
+          }}
         />
       </div>
       <div className="input-control">
@@ -87,7 +86,7 @@ const CreateContent = () => {
           value={important.toString()}
           id="Important"
           name="Important"
-          onChange={(e) => setImportant(e.target.value === "true")}
+          onChange={(e) => setImportant(e.target.checked)}
         />
       </div>
       <button onClick={handleOnSumbit}>Submit</button>
