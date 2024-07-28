@@ -11,27 +11,39 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Button from "../button/Button";
-import { logout } from "@/app/utils/Icons";
+import { arrowLeft, bars, logout } from "@/app/utils/Icons";
 import { SignedOut, SignOutButton, UserButton, useUser } from "@clerk/nextjs";
 const Sidebar = () => {
   const router = useRouter();
   const pathName = usePathname();
-  const {user} =useUser();
+  const { user } = useUser();
   // console.log(user)
   const handleClick = (link: string) => {
     router.push(link);
   };
 
-  const { theme } = useGlobalState();
+  const { theme, collapsed, collapseMenu } = useGlobalState();
   // console.log(theme)
   // useGlobalUpdate()
   return (
-    <SidebarStyled className="flex flex-col justify-between" theme={theme}>
+    <SidebarStyled
+      className="flex flex-col justify-between"
+      collapsed={collapsed}
+      theme={theme}
+    >
+      <button className="toggle-nav" onClick={collapseMenu}>
+        {collapsed ? bars : arrowLeft}
+      </button>
       <div className="profile">
         <div className="profile-overlay absolute top-0 left-0 w-full h-full backdrop-filter[blur(10px)]  z-0 transition-all "></div>
         <div className="image">
           {" "}
-          <Image width={70} height={70} src={user?.imageUrl?user.imageUrl:"/avatar1.png"} alt="" />
+          <Image
+            width={70}
+            height={70}
+            src={user?.imageUrl ? user.imageUrl : "/avatar1.png"}
+            alt=""
+          />
         </div>{" "}
         <div className="user-btn absolute z-20 top-0 w-full h-full">
           <UserButton />
@@ -72,14 +84,50 @@ const Sidebar = () => {
     </SidebarStyled>
   );
 };
-const SidebarStyled = styled.nav`
+const SidebarStyled = styled.nav<{ collapsed: boolean }>`
   position: relative;
   width: ${(props) => props.theme.sidebarWidth};
   background-color: ${(props) => props.theme.colorBg2};
   border: 2px solid ${(props) => props.theme.borderColor2};
   border-radius: 1rem;
   color: ${(props) => props.theme.colorGrey3};
+transform:${(props) =>
+  props.collapsed ? "translateX(-100%)" : "translateX(0)"} ;
+transition:  all 0.3 cubic-bezier(.53,0.32,0,1);
 
+  .toggle-nav{
+    position: absolute;
+    right: -3rem;
+    top: 3.5rem;
+    padding: 1rem;
+    border-bottom-right-radius: .5rem;
+    border-top-right-radius: .5rem;
+    background-color: ${(props) => props.theme.colorBg};
+  }
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    z-index: 22;
+    height: 95%;
+    margin-top: 1%;
+
+    .user-btn {
+    .cl-rootBox {
+      width: 80%;
+      height: 80%;
+      display: block;
+      .cl-userButtonBox {
+        width: 100%;
+        height: 100%;
+
+        .cl-internal-c4jh7f {
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
   .user-btn {
     .cl-rootBox {
       width: 100%;
@@ -97,7 +145,7 @@ const SidebarStyled = styled.nav`
       }
     }
   }
-  .cl-userButtonTrigger{
+  .cl-userButtonTrigger {
     opacity: 0;
     width: 100%;
     height: 100%;

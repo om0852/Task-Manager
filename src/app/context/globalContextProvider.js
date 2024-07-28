@@ -15,11 +15,16 @@ export const GlobalProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [selectedTheme, setSelectedTheme] = useState(0);
   const theme = themes[selectedTheme];
+  const [collapsed,setCollapsed]=useState(false)
   const [modal, setModal] = useState(false);
   const { user } = useUser();
   useEffect(() => {
     if (user) getAllTask();
   }, [user]);
+
+const collapseMenu=()=>{
+  setCollapsed(prev=>!prev)
+}
 
   const getAllTask = async () => {
     setIsLoading(true);
@@ -111,7 +116,9 @@ export const GlobalProvider = ({ children }) => {
         closeModal,
         handleOnSumbit,
         modal,
-        updateData
+        updateData,
+        collapsed,
+        collapseMenu
       }}
     >
       <GlobalUpdateContext.Provider value={{}}>
