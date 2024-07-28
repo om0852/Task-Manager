@@ -98,6 +98,7 @@ transition:  all 0.3 cubic-bezier(.53,0.32,0,1);
   .toggle-nav{
     position: absolute;
     right: -3rem;
+    display: none;
     top: 3.5rem;
     padding: 1rem;
     border-bottom-right-radius: .5rem;
@@ -109,7 +110,9 @@ transition:  all 0.3 cubic-bezier(.53,0.32,0,1);
     z-index: 22;
     height: 95%;
     margin-top: 1%;
-
+  .toggle-nav{
+display: block;
+}
     .user-btn {
     .cl-rootBox {
       width: 80%;
