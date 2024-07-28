@@ -22,7 +22,7 @@ const TaskItem: React.FC<Props> = ({
 }) => {
   // console.log(id)
   const { theme, updateTask, deleteTask, openModal } = useGlobalState();
-  const newDate = useMemo(() => formatDate(date), []);
+  const newDate = useMemo(() => formatDate(date), [date]);
 
   return (
     <TaskItemStyle theme={theme}>
