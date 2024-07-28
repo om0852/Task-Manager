@@ -11,6 +11,7 @@ export const GlobalUpdateContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [updateData,setUpdateData]=useState(null);
   const [tasks, setTasks] = useState([]);
   const [selectedTheme, setSelectedTheme] = useState(0);
   const theme = themes[selectedTheme];
@@ -76,27 +77,24 @@ export const GlobalProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
-  const updateTask = async (task) => {
+  const updateTask = async (e,task) => {
+    e.preventDefault();
     try {
       const res = await axios.put("/api/tasks", task);
-      const data = tasks.map((data) => {
-        if (data.id == task.id) {
-          data.isCompleted = task.isCompleted;
-          return data;
-        } else {
-          return data;
-        }
-      });
-      setTasks(data);
       toast.success("task updated");
+      closeModal();
+      getAllTask();
     } catch (error) {
       toast.error("something went wrong");
     }
   };
-  const openModal = () => {
+  const openModal = (data) => {
+    console.log(data)
+    setUpdateData(data)
     setModal(true);
   };
   const closeModal = () => {
+    setUpdateData(null)
     setModal(false);
   };
   return (
@@ -113,6 +111,7 @@ export const GlobalProvider = ({ children }) => {
         closeModal,
         handleOnSumbit,
         modal,
+        updateData
       }}
     >
       <GlobalUpdateContext.Provider value={{}}>

@@ -29,7 +29,7 @@ const Tasks: React.FC<TaskProps> = ({ title, tasks }) => {
             isImportant={item.isImportant}
           />
         ))}
-        <button className="create-task" onClick={openModal}>{plus}Add New task</button>
+        <button className="create-task" onClick={()=>openModal(null)}>{plus}Add New task</button>
       </div>
     </TaskStyled>
   );

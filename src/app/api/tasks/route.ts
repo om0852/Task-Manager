@@ -61,20 +61,42 @@ export async function GET(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const { userId } = auth();
-    const { isCompleted, id } = await req.json();
+    const body= await req.json();
+    console.log(body)
+    const { completed, id,state } =body
     if (!userId) {
       return NextResponse.redirect("/signin");
     }
+if(state!="update"){
 
-    const  task =await prisma.task.update({
-      where:{
-        id
-      },
-      data:{
-        isCompleted
-      }
-    })
-    return NextResponse.json({message:"Task Updated"})
+  const  task =await prisma.task.update({
+    where:{
+      id
+    },
+    data:{
+      isCompleted:completed,
+      
+    }
+  })
+  return NextResponse.json({message:"Task Updated"})
+}
+else{
+  const { id,title,description,completed,date,important } = body
+
+  const  task =await prisma.task.update({
+    where:{
+      id
+    },
+    data:{
+      isCompleted:completed,title,
+      isImportant:important,
+      date,
+      description:description
+    }
+  })
+  return NextResponse.json({message:"Task Updated"})
+
+}
   } catch (error: any) {
     console.log(error);
     return NextResponse.json(

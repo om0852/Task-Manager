@@ -7,7 +7,7 @@ const Modal = ({ content }: { content: ReactNode }) => {
   const { closeModal, theme } = useGlobalState();
   return (
     <ModalStyle theme={theme}>
-      <div className="modal-overlay" onClick={closeModal}></div>
+      <div className="modal-overlay" onClick={()=>{closeModal()}}></div>
       <div className="modal-content">{content}</div>
     </ModalStyle>
   );
