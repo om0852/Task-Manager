@@ -92,12 +92,13 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
   border-radius: 1rem;
   color: ${(props) => props.theme.colorGrey3};
 transform:${(props) =>
-  props.collapsed ? "translateX(-100%)" : "translateX(0)"} ;
+  props.collapsed ? "translateX(-120%)" : "translateX(0)"} ;
 transition:  all 0.3 cubic-bezier(.53,0.32,0,1);
 
   .toggle-nav{
     position: absolute;
-    right: -3rem;
+    right: ${(props) =>
+  props.collapsed ? "-5rem":"-3rem"};
     display: none;
     top: 3.5rem;
     padding: 1rem;
