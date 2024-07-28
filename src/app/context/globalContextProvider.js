@@ -93,6 +93,16 @@ const collapseMenu=()=>{
       toast.error("something went wrong");
     }
   };
+  const updateTask1=async(task)=>{
+    try {
+      const res = await axios.put("/api/tasks", task);
+      toast.success("task updated");
+      // closeModal();
+      getAllTask();
+    } catch (error) {
+      toast.error("something went wrong");
+    }
+  }
   const openModal = (data) => {
     console.log(data)
     setUpdateData(data)
@@ -118,6 +128,7 @@ const collapseMenu=()=>{
         modal,
         updateData,
         collapsed,
+        updateTask1,
         collapseMenu
       }}
     >

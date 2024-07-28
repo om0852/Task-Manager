@@ -21,7 +21,7 @@ const TaskItem: React.FC<Props> = ({
   isCompleted,
 }) => {
   // console.log(id)
-  const { theme, updateTask, deleteTask, openModal } = useGlobalState();
+  const { theme, updateTask,updateTask1, deleteTask, openModal } = useGlobalState();
   const newDate = useMemo(() => formatDate(date), [date]);
 
   return (
@@ -33,8 +33,8 @@ const TaskItem: React.FC<Props> = ({
         {isCompleted ? (
           <button
             onClick={(e) => {
-              const obj = { id, isCompleted: false };
-              updateTask(e, obj);
+              const obj = { id, isCompleted: false,state:"complete" };
+              updateTask1( obj);
             }}
             className="completed"
           >
@@ -43,8 +43,8 @@ const TaskItem: React.FC<Props> = ({
         ) : (
           <button
             onClick={(e) => {
-              const obj = { id, isCompleted: true };
-              updateTask(e, obj);
+              const obj = { id, isCompleted: true,state:"complete" };
+              updateTask1( obj);
             }}
             className="incompleted"
           >

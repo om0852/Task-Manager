@@ -63,7 +63,7 @@ export async function PUT(req: NextRequest) {
     const { userId } = auth();
     const body= await req.json();
     console.log(body)
-    const { completed, id,state } =body
+    const { isCompleted, id,state } =body
     if (!userId) {
       return NextResponse.redirect("/signin");
     }
@@ -74,7 +74,7 @@ if(state!="update"){
       id
     },
     data:{
-      isCompleted:completed,
+      isCompleted:isCompleted,
       
     }
   })
