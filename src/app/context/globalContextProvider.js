@@ -30,34 +30,46 @@ export const GlobalProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
-  const getCompletedTask=()=>{
-    return tasks.filter((item)=>item.isCompleted==true);
-  }
-  const getInCompletedTask=()=>{
-    return tasks.filter((item)=>item.isCompleted==false);
-  }
-  const getImportantTask=()=>{
-    return tasks.filter((item)=>item.isImportant==false);
-  }
-  const deleteTask=async(id)=>{
-try{
-  setIsLoading(true);
-const res = axios.delete(`/api/tasks/${id}`);
-let updatedata=[...tasks]
-updatedata=updatedata.filter((item)=>item.id!=id)
-setTasks(updatedata)
-toast.success("Task Deleted")
-
-}
-catch(error){
-  
-  toast.error("Something Went Wrong")
-
-}
-finally{
-  setIsLoading(false)
-}
-  }
+  const getCompletedTask = () => {
+    return tasks.filter((item) => item.isCompleted == true);
+  };
+  const getInCompletedTask = () => {
+    return tasks.filter((item) => item.isCompleted == false);
+  };
+  const getImportantTask = () => {
+    return tasks.filter((item) => item.isImportant == false);
+  };
+  const deleteTask = async (id) => {
+    try {
+      setIsLoading(true);
+      const res = axios.delete(`/api/tasks/${id}`);
+      let updatedata = [...tasks];
+      updatedata = updatedata.filter((item) => item.id != id);
+      setTasks(updatedata);
+      toast.success("Task Deleted");
+    } catch (error) {
+      toast.error("Something Went Wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const updateTask = async (task) => {
+    try {
+      const res = await axios.put("/api/tasks", task);
+      const data = tasks.map((data) => {
+        if (data.id == task.id) {
+          data.isCompleted = task.isCompleted;
+          return data;
+        } else {
+          return data;
+        }
+      });
+      setTasks(data);
+      toast.success("task updated");
+    } catch (error) {
+      toast.error("something went wrong");
+    }
+  };
   return (
     <GlobalContext.Provider
       value={{
@@ -66,7 +78,8 @@ finally{
         deleteTask,
         getCompletedTask,
         getImportantTask,
-        getInCompletedTask
+        getInCompletedTask,
+        updateTask,
       }}
     >
       <GlobalUpdateContext.Provider value={{}}>

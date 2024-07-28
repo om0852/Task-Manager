@@ -20,8 +20,10 @@ const TaskItem: React.FC<Props> = ({
   isImportant,
   isCompleted,
 }) => {
-  const { theme ,deleteTask} = useGlobalState();
-  const newDate = useMemo(() => formatDate(date), []);
+  const { theme ,updateTask,deleteTask} = useGlobalState();
+  const  newDate = useMemo(() => formatDate(date), []);
+
+  
   return (
     <TaskItemStyle theme={theme}>
       <h1>{title}</h1>
@@ -29,13 +31,13 @@ const TaskItem: React.FC<Props> = ({
       <p className="date">{newDate}</p>
       <div className="task-footer">
         {isCompleted ? (
-          <button className="completed">Completed</button>
+          <button onClick={()=>{const obj={id,isCompleted:false};updateTask(obj)}} className="completed">Completed</button>
         ) : (
-          <button className="incompleted">InCompleted</button>
+          <button onClick={()=>{const obj={id,isCompleted:true};updateTask(obj)}} className="incompleted">InCompleted</button>
         )}
         <div>
           <button className="edit">{edit}</button>
-          <button className="edit" onClick={()=>deleteTask(id)}>{trash}</button>
+          <button className="edit" onClick={()=>deleteTask(id)} >{trash}</button>
         </div>
       </div>
     </TaskItemStyle>

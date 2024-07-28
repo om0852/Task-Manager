@@ -37,8 +37,8 @@ const Sidebar = () => {
           <UserButton />
         </div>
         <h1>
-          <span>{user?.firstName}</span>
-          <span>{user?.lastName}</span>
+          <span className="capitalize">{user?.firstName}</span>
+          <span className="capitalize">{user?.lastName}</span>
         </h1>
       </div>
       <ul className="nav-items">

@@ -20,9 +20,16 @@ export async function POST(req: NextRequest) {
     }
 
     const task = await prisma.task.create({
-      data: { title, description, date,isCompleted: completed,isImportant: important,userId },
+      data: {
+        title,
+        description,
+        date,
+        isCompleted: completed,
+        isImportant: important,
+        userId,
+      },
     });
-    return NextResponse.json("done")
+    return NextResponse.json("done");
   } catch (error: any) {
     console.log(error);
     return NextResponse.json(
@@ -35,15 +42,14 @@ export async function GET(req: NextRequest) {
   try {
     const { userId } = auth();
     if (!userId) {
-      return NextResponse.json("/signin");
+      return NextResponse.redirect("/signin");
     }
-const tasks = await prisma.task.findMany({
-    where:{
-        userId
-    }
-})
-return NextResponse.json({data:tasks});
-
+    const tasks = await prisma.task.findMany({
+      where: {
+        userId,
+      },
+    });
+    return NextResponse.json({ data: tasks });
   } catch (error: any) {
     console.log(error);
     return NextResponse.json(
@@ -54,16 +60,21 @@ return NextResponse.json({data:tasks});
 }
 export async function PUT(req: NextRequest) {
   try {
-  } catch (error: any) {
-    console.log(error);
-    return NextResponse.json(
-      { message: "Something Went Wrong", error: error.message },
-      { status: 400 }
-    );
-  }
-}
-export async function DELETE(req: NextRequest) {
-  try {
+    const { userId } = auth();
+    const { isCompleted, id } = await req.json();
+    if (!userId) {
+      return NextResponse.redirect("/signin");
+    }
+
+    const  task =await prisma.task.update({
+      where:{
+        id
+      },
+      data:{
+        isCompleted
+      }
+    })
+    return NextResponse.json({message:"Task Updated"})
   } catch (error: any) {
     console.log(error);
     return NextResponse.json(
