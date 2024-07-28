@@ -14,6 +14,7 @@ export const GlobalProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [selectedTheme, setSelectedTheme] = useState(0);
   const theme = themes[selectedTheme];
+  const [modal, setModal] = useState(false);
   const { user } = useUser();
   useEffect(() => {
     if (user) getAllTask();
@@ -23,13 +24,35 @@ export const GlobalProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const res = await axios.get("/api/tasks");
-      setTasks(res.data.data);
+      const sorted = res.data.data.sort((a, b) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      });
+      setTasks(sorted);
     } catch (error) {
       toast.error("something went wrong");
     } finally {
       setIsLoading(false);
     }
   };
+
+  const handleOnSumbit = async (e, task) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post("/api/tasks", task);
+
+      if (res.data.error) {
+        toast.error(res.data.error);
+      }
+      toast.success("task Added");
+      getAllTask();
+
+      closeModal();
+    } catch (error) {
+      toast.error("Something Went Wrong");
+    }
+  };
+
   const getCompletedTask = () => {
     return tasks.filter((item) => item.isCompleted == true);
   };
@@ -70,6 +93,12 @@ export const GlobalProvider = ({ children }) => {
       toast.error("something went wrong");
     }
   };
+  const openModal = () => {
+    setModal(true);
+  };
+  const closeModal = () => {
+    setModal(false);
+  };
   return (
     <GlobalContext.Provider
       value={{
@@ -80,6 +109,10 @@ export const GlobalProvider = ({ children }) => {
         getImportantTask,
         getInCompletedTask,
         updateTask,
+        openModal,
+        closeModal,
+        handleOnSumbit,
+        modal,
       }}
     >
       <GlobalUpdateContext.Provider value={{}}>

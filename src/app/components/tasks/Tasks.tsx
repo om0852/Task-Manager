@@ -5,14 +5,16 @@ import styled from "styled-components";
 import CreateContent from "../Modals/CreateContent";
 import TaskItem from "../taskitem/TaskItem";
 import { plus } from "@/app/utils/Icons";
+import Modal from "../Modals/Modal";
 interface TaskProps {
   title: string;
   tasks: any[];
 }
 const Tasks: React.FC<TaskProps> = ({ title, tasks }) => {
-  const { theme } = useGlobalState();
+  const { theme ,openModal,modal} = useGlobalState();
   return (
     <TaskStyled theme={theme}>
+      {modal && <Modal content={<CreateContent/>}/>}
       {/* <CreateContent/> */}
       <h1>{title}</h1>
       <div className="tasks grid">
@@ -27,7 +29,7 @@ const Tasks: React.FC<TaskProps> = ({ title, tasks }) => {
             isImportant={item.isImportant}
           />
         ))}
-        <button className="create-task">{plus}Add New task</button>
+        <button className="create-task" onClick={openModal}>{plus}Add New task</button>
       </div>
     </TaskStyled>
   );
