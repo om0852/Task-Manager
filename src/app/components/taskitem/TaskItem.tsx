@@ -27,7 +27,7 @@ const TaskItem: React.FC<Props> = ({
   return (
     <TaskItemStyle theme={theme}>
       <h1>{title}</h1>
-      <p>{description}</p>
+      <p className="max-h-[10vh] overflow-hidden overflow-y-auto" style={{scrollbarWidth:"none"}}>{description}</p>
       <p className="date">{newDate}</p>
       <div className="task-footer">
         {isCompleted ? (
