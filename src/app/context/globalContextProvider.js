@@ -66,7 +66,7 @@ const collapseMenu=()=>{
     return tasks.filter((item) => item.isCompleted == false);
   };
   const getImportantTask = () => {
-    return tasks.filter((item) => item.isImportant == false);
+    return tasks.filter((item) => item.isImportant == true);
   };
   const deleteTask = async (id) => {
     try {
